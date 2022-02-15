@@ -1,8 +1,16 @@
-@()
-    @main("Collection Man") {
-        <label>
-            Input your api docs
-            <br>
-            <textarea id="apiInput" name="apiInput" class="text-area" rows="50" cols="100"></textarea>
-        </label>
-    }
+@(conversionData: Form[ConversionData])(implicit messages: Messages)
+
+@implicitVerticalFC = @{
+   b4.vertical.fieldConstructor()
+}
+
+@main("Collection Man") {
+
+   @b4.form(routes.CollectionManController.convertJson, Symbol("class") -> "col-xl-6 p-0") {
+      @b4.textarea(conversionData("body"), Symbol("_label") -> "plz fill me in")
+      @b4.buttonType("submit", Symbol("class") -> "btn btn-dark", Symbol("id") -> "btn") {
+         convert
+      }
+   }
+
+}
