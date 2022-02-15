@@ -7,8 +7,8 @@ case class ConversionData(body: String)
 
 object ConversionData {
 
-  def apply(body: String): ConversionData =
-    ConversionData(body)
+  def apply(): ConversionData =
+    ConversionData("")
 
   def conversionForm(): Form[ConversionData] =
     Form(
