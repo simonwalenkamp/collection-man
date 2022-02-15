@@ -11,11 +11,11 @@ class CollectionManControllerSpec extends PlaySpec with GuiceOneAppPerTest with 
 
     "render conversionView" in {
       val controller = new CollectionManController(stubControllerComponents())
-      val home = controller.getConversionView().apply(FakeRequest(GET, "/"))
+      val home       = controller.getConversionView().apply(FakeRequest(GET, "/"))
 
       status(home) mustBe OK
       contentType(home) mustBe Some("text/html")
-      contentAsString(home) must include ("Conversion page")
+      contentAsString(home) must include("Input your api docs")
     }
   }
 }
