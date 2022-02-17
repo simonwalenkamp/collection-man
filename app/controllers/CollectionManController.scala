@@ -1,8 +1,9 @@
 package controllers
 
 import controllers.base.ApiController
-import models.ConversionData
+import models.{ConversionData, Info, Item, PostmanCollection}
 import play.api.i18n.I18nSupport
+import play.api.libs.json.{JsValue, Json, Reads}
 import play.api.mvc._
 
 import javax.inject._
@@ -21,10 +22,13 @@ class CollectionManController @Inject() (val controllerComponents: ControllerCom
   def convertJson: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     ConversionData.conversionForm().bindFromRequest().fold(
       formWithErrors => {
-        Ok(views.html.resultView("IT DID NOT WORK!"))
+        Ok(views.html.resultView(formWithErrors.errors.toString()))
       },
       conversionData => {
-        Ok(views.html.resultView(conversionData.body))
+        val json: JsValue = Json.parse(conversionData.body)
+        val test = json.validate[PostmanCollection]
+        println(test)
+        Ok(views.html.resultView(test.toString))
       }
     )
   }
