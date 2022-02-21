@@ -8,7 +8,7 @@ object TestDataHelper {
 
   def readJsonFromFile(path: String): JsValue = {
     val bufferedSource = Source.fromFile(path)
-    val content        = bufferedSource.getLines.mkString
+    val content        = bufferedSource.getLines().mkString
 
     bufferedSource.close
 
