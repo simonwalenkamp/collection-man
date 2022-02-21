@@ -2,6 +2,8 @@ package controllers
 
 import org.scalatestplus.play._
 import org.scalatestplus.play.guice._
+import play.api.Play.materializer
+import play.api.test.CSRFTokenHelper.CSRFFRequestHeader
 import play.api.test._
 import play.api.test.Helpers._
 
@@ -11,11 +13,12 @@ class CollectionManControllerSpec extends PlaySpec with GuiceOneAppPerTest with 
 
     "render conversionView" in {
       val controller = new CollectionManController(stubControllerComponents())
-      val home       = controller.getConversionView().apply(FakeRequest(GET, "/"))
+      val request    = FakeRequest(GET, "/").withCSRFToken
+      val result     = controller.getConversionView().apply(request)
 
-      status(home) mustBe OK
-      contentType(home) mustBe Some("text/html")
-      contentAsString(home) must include("Input your api docs")
+      status(result) mustBe OK
+      contentType(result) mustBe Some("text/html")
+      contentAsString(result) must include("<title>Collection Man</title>")
     }
   }
 }
