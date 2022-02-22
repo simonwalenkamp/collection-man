@@ -1,9 +1,8 @@
 package controllers
 
-import controllers.base.ApiController
 import models.{ConversionData, PostmanCollection}
 import play.api.i18n.I18nSupport
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import play.api.mvc._
 
 import javax.inject._
@@ -11,7 +10,6 @@ import javax.inject._
 @Singleton
 class CollectionManController @Inject() (val controllerComponents: ControllerComponents)
     extends BaseController
-    with ApiController
     with I18nSupport {
 
   def getConversionView: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
@@ -25,13 +23,15 @@ class CollectionManController @Inject() (val controllerComponents: ControllerCom
         Ok(views.html.resultView(formWithErrors.errors.toString()))
       },
       conversionData => {
-        val json: JsValue = Json.parse(conversionData.body)
-        val test = json.validate[PostmanCollection]
-        val postmanCollection = test.get
-
-        val result = postmanCollection.toYamlString
-
-        Ok(views.html.resultView(result))
+        try {
+          val json: JsValue = Json.parse(conversionData.body)
+          PostmanCollection.reads.reads(json) match {
+            case JsSuccess(value, _) => Ok(views.html.resultView(value.toYamlString))
+            case JsError(errors) => Ok(views.html.resultView(errors.toString()))
+          }
+        } catch {
+            case e: Exception => Ok(views.html.resultView(e.getMessage))
+        }
       }
     )
   }
