@@ -31,10 +31,10 @@ object PostmanCollection {
 
 object Item {
 
-  implicit val reads: Reads[Item] = (
+  implicit lazy val reads: Reads[Item] = (
     (JsPath \ "name").read[String] and
       (JsPath \ "request").readNullable[Endpoint] and
-      (JsPath \ "item").lazyReadNullable(implicitly[Reads[Seq[Item]]])
+      (JsPath \ "item").lazyReadNullable[Seq[Item]](Reads.seq(Item.reads))
   )(Item.fromJson(_: String, _: Option[Endpoint], _: Option[Seq[Item]]))
 
   def fromJson(name: String, request: Option[Endpoint], item: Option[Seq[Item]]): Item =
