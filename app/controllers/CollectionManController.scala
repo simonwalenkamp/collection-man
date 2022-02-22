@@ -1,9 +1,9 @@
 package controllers
 
 import controllers.base.ApiController
-import models.{ConversionData, Info, Item, PostmanCollection}
+import models.{ConversionData, PostmanCollection}
 import play.api.i18n.I18nSupport
-import play.api.libs.json.{JsValue, Json, Reads}
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 
 import javax.inject._
@@ -27,8 +27,11 @@ class CollectionManController @Inject() (val controllerComponents: ControllerCom
       conversionData => {
         val json: JsValue = Json.parse(conversionData.body)
         val test = json.validate[PostmanCollection]
-        println(test)
-        Ok(views.html.resultView(test.toString))
+        val postmanCollection = test.get
+
+        val result = postmanCollection.toYamlString
+
+        Ok(views.html.resultView(result))
       }
     )
   }

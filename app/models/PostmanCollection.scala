@@ -1,9 +1,19 @@
 package models
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json.{JsPath, Reads}
 
-case class PostmanCollection(info: Info, Items: Seq[Item])
+case class PostmanCollection(info: Info, Items: Seq[Item]) {
+  def toYamlString: String = {
+    val mapper = new ObjectMapper(new YAMLFactory())
+    mapper.registerModule(DefaultScalaModule)
+    mapper.writeValueAsString(this)
+  }
+
+}
 case class Item(name: String, request: Option[Endpoint], items: Option[Seq[Item]])
 case class Endpoint(method: String, headers: Seq[Map[String, String]], path: Seq[String], variable: Option[Seq[Map[String, String]]])
 case class Info(id: String, name: String, description: String, schema: String)
@@ -17,7 +27,6 @@ object PostmanCollection {
 
   def fromJson(info: Info, requests: Seq[Item]): PostmanCollection =
     PostmanCollection(info, requests)
-
 }
 
 object Item {
