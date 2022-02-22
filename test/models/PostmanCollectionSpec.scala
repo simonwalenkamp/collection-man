@@ -43,12 +43,7 @@ class PostmanCollectionSpec extends AnyWordSpec {
           Some(endpoint),
           None
         )
-
-        //JsSuccess(PostmanCollection(Info(f21e770c-7d3b-4092-bdd6-288bb1d8d825,Postman to OpenAPI,1,https://schema.getpostman.com/json/collection/v2.1.0/collection.json),List(Item(Generate an OpenAPI Schema,Some(Endpoint(GET,List(Map(key -> x-api-key, value -> {{apiKey}}, type -> text)),List(collections, :collectionId),Some(List(Map(key -> collectionId, value -> {{collectionId}}))))),None))),)
-        //JsSuccess(PostmanCollection(Info(f21e770c-7d3b-4092-bdd6-288bb1d8d825,Postman to OpenAPI,1,https://schema.getpostman.com/json/collection/v2.1.0/collection.json),List(Item(Generate an OpenAPI Schema,Some(Endpoint(GET,List(Map(key -> x-api-key, value -> {{apiKey}}, type -> text)),List(collections, :collectionId),Some(List(Map(key -> value), Map(value -> {{collectionId}}))))),None))),)
-
-        //JsSuccess(PostmanCollection(Info(f21e770c-7d3b-4092-bdd6-288bb1d8d825,Postman to OpenAPI,1,https://schema.getpostman.com/json/collection/v2.1.0/collection.json),List(Item(Generate an OpenAPI Schema,Some(Endpoint(GET,List(Map(key -> x-api-key, value -> {{apiKey}}, type -> text)),List(collections, :collectionId),Some(List(Map(key -> collectionId, value -> {{collectionId}}))))),None))),)
-        //JsSuccess(PostmanCollection(Info(f21e770c-7d3b-4092-bdd6-288bb1d8d825,Postman to OpenAPI,1,https://schema.getpostman.com/json/collection/v2.1.0/collection.json),List(Item(Generate an OpenAPI Schema,Some(Endpoint(GET,List(Map(key -> x-api-key, value -> {{apiKey}}, type -> text)),List(collections, :collectionId),Some(List(Map(key -> value, value -> {{collectionId}}))))),None))),)
+        
         val expected = PostmanCollection(info, Seq(item))
         val json = TestDataHelper.readJsonFromFile("test/data/small_test_data.json")
 
