@@ -1,0 +1,22 @@
+---
+info:
+  id: "f21e770c-7d3b-4092-bdd6-288bb1d8d825"
+  name: "Postman to OpenAPI"
+  description: "1"
+  schema: "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+Items:
+- name: "Generate an OpenAPI Schema"
+  request:
+    method: "GET"
+    headers:
+    - key: "x-api-key"
+      value: "{{apiKey}}"
+      type: "text"
+    path:
+    - "collections"
+    - ":collectionId"
+    variable:
+    - key: "collectionId"
+      value: "{{collectionId}}"
+  items: null
+

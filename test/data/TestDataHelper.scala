@@ -15,4 +15,13 @@ object TestDataHelper {
     Json.parse(content)
   }
 
+  def readYamlFromFile(path: String): String = {
+    val bufferedSource = Source.fromFile(path)
+    val content        = bufferedSource.getLines().mkString("\n")
+
+    bufferedSource.close
+
+    content
+  }
+
 }

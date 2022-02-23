@@ -54,6 +54,41 @@ class PostmanCollectionSpec extends AnyWordSpec {
 
     }
 
+    "convert to yaml" should {
+
+      "return expected yaml" in {
+
+        val expected = TestDataHelper.readYamlFromFile("test/data/small_test_data.yml")
+
+        val info = Info(
+          "f21e770c-7d3b-4092-bdd6-288bb1d8d825",
+          "Postman to OpenAPI",
+          "1",
+          "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+        )
+
+        val endpoint = Endpoint(
+          "GET",
+          Seq(Map("key" -> "x-api-key", "value" -> "{{apiKey}}", "type" -> "text")),
+          Seq("collections",
+            ":collectionId"),
+          Some(Seq(Map("key" -> "collectionId", "value" -> "{{collectionId}}")))
+        )
+
+        val item = Item(
+          "Generate an OpenAPI Schema",
+          Some(endpoint),
+          None
+        )
+
+        val postmanCollection = PostmanCollection(info, Seq(item))
+
+        val result = postmanCollection.toYamlString
+
+        result mustBe expected
+      }
+
+    }
   }
 
 }
