@@ -14,8 +14,8 @@ class CollectionManControllerSpec extends PlaySpec with GuiceOneAppPerTest with 
 
     "render conversionView" in {
       val controller = new CollectionManController(stubControllerComponents())
-      val request    = FakeRequest(GET, "/").withCSRFToken
-      val result     = controller.getConversionView().apply(request)
+      val request = FakeRequest(GET, "/").withCSRFToken
+      val result = controller.getConversionView().apply(request)
 
       status(result) mustBe OK
       contentType(result) mustBe Some("text/html")
@@ -24,8 +24,8 @@ class CollectionManControllerSpec extends PlaySpec with GuiceOneAppPerTest with 
 
     "return bad request if given invalid form" in {
       val controller = new CollectionManController(stubControllerComponents())
-      val request    = FakeRequest(POST, "/convert").withCSRFToken
-      val result     = controller.convertJson().apply(request)
+      val request = FakeRequest(POST, "/convert").withCSRFToken
+      val result = controller.convertJson().apply(request)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) must include("Invalid form!")

@@ -1,16 +1,16 @@
 @(conversionData: Form[ConversionData])(implicit request: Request[AnyContent], messages: Messages)
 
-@implicitVerticalFC = @{
-   b4.vertical.fieldConstructor()
-}
+    @implicitVerticalFC = @{
+        b4.vertical.fieldConstructor()
+    }
 
-@main("Collection Man") {
-   <label>Add you api docs:</label>
-   @b4.formCSRF(routes.CollectionManController.convertJson(), Symbol("class") -> "") {
-      @b4.textarea(conversionData("body"), Symbol("class") -> "text-area", Symbol("rows") -> 50, Symbol("cols") -> 100)
-      @b4.buttonType("submit", Symbol("class") -> "btn", Symbol("id") -> "btn") {
-         convert
-      }
-   }
+    @main("Collection Man") {
+        <label>Add you api docs:</label>
+        @b4.formCSRF(routes.CollectionManController.convertJson(), Symbol("class") -> "") {
+            @b4.textarea(conversionData("body"), Symbol("class") -> "text-area", Symbol("rows") -> 50, Symbol("cols") -> 100)
+            @b4.buttonType("submit", Symbol("class") -> "btn", Symbol("id") -> "btn") {
+                convert
+            }
+        }
 
-}
+    }
