@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "f21e770c-7d3b-4092-bdd6-288bb1d8d825",
 		"name": "Postman to OpenAPI",
-		"description": "# Getting started\n\nThe easiest way to get started with this collection is to click the fork button to fork this collection to your own workspace and use Postman to send requests.\n\n# Usage\n\n1. [Generate a Postman API key](https://learning.postman.com/docs/developer/intro-api/)\n\n2. Fetch the ID of the Collection you wish to convert. This can be found by selecting the Collection in Postman, navigating to the right-hand sidebar, clicking the `Info` tab (symbolized by the `i` icon), and copying the ID.\n\n3. Update the `Current value` for the associated [collection variables](https://learning.postman.com/docs/sending-requests/variables/#defining-collection-variables) in this collection  with the Postman API key and Collection ID you just retrieved.\n\n4. Run the [Generate an OpenAPI Schema](https://www.postman.com/postman/workspace/405e0480-49cf-463b-8052-6c0d05a8e8f3/request/5922408-3b169388-c199-43d0-8247-721b312c0da4) request. In the response pane, click `Visualize`.\n\n5. Make use of your freshly converted schema!",
+		"description": "1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [

@@ -20,17 +20,17 @@ class CollectionManController @Inject() (val controllerComponents: ControllerCom
   def convertJson: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     ConversionData.conversionForm().bindFromRequest().fold(
       formWithErrors => {
-        Ok(views.html.resultView(formWithErrors.errors.toString()))
+        BadRequest(s"Invalid form! Errors: ${formWithErrors.toString}")
       },
       conversionData => {
         try {
           val json: JsValue = Json.parse(conversionData.body)
           PostmanCollection.reads.reads(json) match {
             case JsSuccess(value, _) => Ok(views.html.resultView(value.toYamlString))
-            case JsError(errors) => Ok(views.html.resultView(errors.toString()))
+            case JsError(errors) => BadRequest(s"Invalid Postman collection Json! errors: ${errors.toString()}")
           }
         } catch {
-            case e: Exception => Ok(views.html.resultView(e.getMessage))
+            case e: Exception => BadRequest(s"Could not parse Json! Error: ${e.getMessage}")
         }
       }
     )
