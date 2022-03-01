@@ -8,7 +8,7 @@ import play.api.libs.json.{JsError, JsPath, JsSuccess}
 
 class PostmanCollectionSpec extends AnyWordSpec {
 
-  "PostmanCollection model" when {
+  "PostmanCollection" when {
 
     "converting from json" should {
 

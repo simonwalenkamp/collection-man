@@ -5,12 +5,13 @@
     }
 
     @main("Collection Man") {
+    <div class="container-body">
         <label>Add you api docs:</label>
         @b4.formCSRF(routes.CollectionManController.convertJson(), Symbol("class") -> "") {
-            @b4.textarea(conversionData("body"), Symbol("class") -> "text-area", Symbol("rows") -> 50, Symbol("cols") -> 100)
+            @b4.textarea(conversionData("body"), Symbol("class") -> "text-area", Symbol("rows") -> 45, Symbol("cols") -> 100, Symbol("data-placement") -> "right")
             @b4.buttonType("submit", Symbol("class") -> "btn", Symbol("id") -> "btn") {
                 convert
             }
         }
-
+    </div>
     }

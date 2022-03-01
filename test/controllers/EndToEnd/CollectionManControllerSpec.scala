@@ -14,35 +14,45 @@ class CollectionManControllerSpec extends AnyWordSpec
   with DefaultAwaitTimeout
   with Injecting {
 
-  "CollectionManController" should {
+  "CollectionManController" when {
 
-    "return bad request if given invalid json" in {
-      val request = FakeRequest(POST, "/convert").withFormUrlEncodedBody("body" -> "invalid json")
-      val result = route(app, request).get
+    "calling /convert" should {
+      
+      "return bad request if given invalid form" in {
+        val request = FakeRequest(POST, "/convert").withFormUrlEncodedBody("body" -> "")
+        val result = route(app, request).get
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) must include("Could not parse Json")
-    }
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) must include("Invalid form!")
+      }
 
-    "return bad request if given invalid postman collection" in {
+      "return bad request if given invalid json" in {
+        val request = FakeRequest(POST, "/convert").withFormUrlEncodedBody("body" -> "invalid json")
+        val result = route(app, request).get
 
-      val json = TestDataHelper.readJsonFromFile("test/data/invalid_info.json")
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) must include("Could not parse Json")
+      }
 
-      val request = FakeRequest(POST, "/convert").withFormUrlEncodedBody("body" -> json.toString())
-      val result = route(app, request).get
+      "return bad request if given invalid postman collection" in {
+        val json = TestDataHelper.readJsonFromFile("test/data/invalid_info.json")
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) must include("Invalid Postman collection Json!")
-    }
+        val request = FakeRequest(POST, "/convert").withFormUrlEncodedBody("body" -> json.toString())
+        val result = route(app, request).get
 
-    "return expected yaml when given valid postman collection" in {
-      val json = TestDataHelper.readJsonFromFile("test/data/small_test_data.json")
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) must include("Invalid Postman collection Json!")
+      }
 
-      val request = FakeRequest(POST, "/convert").withFormUrlEncodedBody("body" -> json.toString())
-      val result = route(app, request).get
+      "return ok when given valid postman collection json" in {
+        val json = TestDataHelper.readJsonFromFile("test/data/small_test_data.json")
 
-      status(result) mustBe OK
-      contentAsString(result) must include("f21e770c-7d3b-4092-bdd6-288bb1d8d825")
+        val request = FakeRequest(POST, "/convert").withFormUrlEncodedBody("body" -> json.toString())
+        val result = route(app, request).get
+
+        status(result) mustBe OK
+      }
+
     }
   }
 }

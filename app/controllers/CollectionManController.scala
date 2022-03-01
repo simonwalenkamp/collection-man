@@ -14,7 +14,7 @@ class CollectionManController @Inject() (val controllerComponents: ControllerCom
 
   def getConversionView: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
     val form = ConversionData.conversionForm().fill(ConversionData(""))
-    Ok(views.html.convertionView(form))
+    Ok(views.html.conversionView(form))
   }
 
   def convertJson: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
